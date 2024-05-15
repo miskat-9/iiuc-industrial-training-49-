@@ -116,15 +116,15 @@ def create_tables(connection):
     CREATE TABLE IF NOT EXISTS news (
         id INT AUTO_INCREMENT PRIMARY KEY,
         category_id INT,
-        author_id INT,
-        editor_id INT,
+        reporter_id INT,
+        publisher_id INT,
         datetime DATETIME,
         title VARCHAR(255) NOT NULL,
         body TEXT,
         link VARCHAR(255),
         FOREIGN KEY (category_id) REFERENCES categories (id),
-        FOREIGN KEY (author_id) REFERENCES reporters (id),
-        FOREIGN KEY (editor_id) REFERENCES publishers (id)
+        FOREIGN KEY (reporter_id) REFERENCES reporters (id),
+        FOREIGN KEY (publisher_id) REFERENCES publishers (id)
     );
     """
     create_images_table = """
