@@ -156,11 +156,32 @@ if __name__ == "__main__":
     conn = create_db_connection()
     if conn is not None:
         create_tables(conn)
+        
         read_categories_query = "SELECT * FROM categories"
         news_categories = execute_read_query(conn, read_categories_query)
         print(news_categories)
 
-        read_reporters_query = "SELECT * FROM reporters"
-        news_reporters = execute_read_query(conn, read_reporters_query)
-        print(news_reporters)
+        read_reporters_query = "SELECT * FROM repoters"
+        news_reporters = execute_read_query(conn, read_repoters_query)
+        print(news_repoters)
+
+        read_publishers_query = "SELECT * FROM publishers"
+        news_publishers = execute_read_query(conn, read_publishers_query)
+        print(news_publishers)
+
+        read_news_query = "SELECT * FROM news"
+        news = execute_read_query(conn, read_news_query)
+        print(news)
+
+        read_images_query = "SELECT * FROM images"
+        news_images = execute_read_query(conn, read_images_query)
+        print(news_images)
+        
+        read_summaries_query = "SELECT * FROM summaries"
+        news_summaries = execute_read_query(conn, read_summaries_query)
+        print(news_summaries)
+
+
+
+
 
