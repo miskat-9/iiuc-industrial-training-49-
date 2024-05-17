@@ -80,7 +80,7 @@ def insert_reporter(connection, name, email):
     data = (name, email)
     execute_query(connection, query, data)
 
-def insert_publisher(connection, name, email):
+def insert_publisher(connection, name, email, phone_number, head_office_add, website, facebook, twitter, linkedin, instagram):
     """
     Inserts a new publisher into the publishers table.
 
@@ -92,19 +92,33 @@ def insert_publisher(connection, name, email):
         The name of the publisher.
     email : str
         The email of the publisher.
+    phone_number : str
+        The phone number of the publisher.
+    head_office_add : str
+        The Head office address of publisher.
+    website : str
+        The website of publisher
+    facebook : str
+        The fb page link of publisher
+    twitter : str
+        The twitter link of publisher
+    linkedin : str
+        The linkedin profile of publisher
+    instagram : str
+        The insta link of publisher
 
     Returns
     -------
     None
     """
     query = """
-    INSERT INTO publishers (name, email)
-    VALUES (%s, %s)
+    INSERT INTO publishers (name, email, phone_number, head_office_add, website, facebook, twitter, linkedin, instagram)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
-    data = (name, email)
+    data = (name, email, phone_number, head_office_add, website, facebook, twitter, linkedin, instagram)
     execute_query(connection, query, data)
 
-def insert_news(connection, category_id, author_id, editor_id, datetime, title, body, link):
+def insert_news(connection, category_id, reporter_id, publisher_id, datetime, title, body, link):
     """
     Inserts a new news article into the news table.
 
@@ -114,10 +128,10 @@ def insert_news(connection, category_id, author_id, editor_id, datetime, title, 
         The connection object to the database.
     category_id : int
         The ID of the category.
-    author_id : int
-        The ID of the author.
-    editor_id : int
-        The ID of the editor.
+    reporter_id : int
+        The ID of the reporter.
+    publisher_id : int
+        The ID of the publisher.
     datetime : datetime
         The publication date and time of the news article.
     title : str
@@ -132,10 +146,10 @@ def insert_news(connection, category_id, author_id, editor_id, datetime, title, 
     None
     """
     query = """
-    INSERT INTO news (category_id, author_id, editor_id, datetime, title, body, link)
+    INSERT INTO news (category_id, reporter_id, publisher_id, datetime, title, body, link)
     VALUES (%s, %s, %s, %s, %s, %s, %s)
     """
-    data = (category_id, author_id, editor_id, datetime, title, body, link)
+    data = (category_id, reporter_id, publisher_id, datetime, title, body, link)
     execute_query(connection, query, data)
 
 def insert_image(connection, news_id, image_url):
@@ -190,23 +204,18 @@ def insert_summary(connection, news_id, summary_text):
 if __name__ == "__main__":
     conn = create_db_connection()
     if conn is not None:
-        insert_category(conn, "Politics", "All news related to politics")
-        insert_reporter(conn, "John Doe", "test@example.com")
-        # Add more insert calls for other tables
-
-        insert_publisher(conn, "John Wick", "J.wick@hotmail.com")
 
         insert_category(conn, "International", "All news related to Internation Current Affairs")
      
         insert_reporter(conn, "Tom H", "tommy@example.com")
   
-        insert_publisher(conn, "Prothom Alo", "P_alo@prothomalo.com")
+        insert_publisher(conn, "Prothom Alo", "P_alo@prothomalo.com", "01545464513", "Chittagong", "www.Paloo.com", "www.fb.com/palooo", "www.twitter.com/palooo", "www.linkedin.com/palooo", "www.instagram.com/palooo")
        
         insert_news(conn, 1, 1, 1, "2024-05-03 00:00:00", "News", "Ronaldo wins World Cup", "https://trustmebro.com/sheinews")
     
         insert_image(conn, 1, "https://unsplash.com/photos/macbook-pro-on-brown-wooden-table-ygCCHPr_q2U")
 
-        insert_summary(conn, 1, "This is the summary of Ronaldo's Career: Penalty & tap in; the end ")
+        insert_summary(conn, 1, "This is the summary of Ronaldo's Career: Penalty & tap in; the end")
         
         conn.commit()
         conn.close()
