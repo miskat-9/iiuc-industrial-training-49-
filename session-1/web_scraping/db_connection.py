@@ -3,7 +3,6 @@ import mysql.connector
 from mysql.connector import Error
 from dotenv import load_dotenv
 
-# Load environment variables
 load_dotenv()
 
 def create_db_connection():
@@ -27,3 +26,10 @@ def create_db_connection():
     except Error as e:
         print(f"The error '{e}' occurred")
         return None
+
+if __name__ == "__main__":
+    connection = create_db_connection()
+    if connection:
+        print("Connection object:", connection)
+    else:
+        print("Failed to connect to the database")
